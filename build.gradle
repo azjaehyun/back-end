@@ -1,0 +1,53 @@
+plugins {
+	id 'org.springframework.boot' version '2.3.5.RELEASE'
+	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
+	id 'java'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter'
+	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+	
+    // https://mvnrepository.com/artifact/com.querydsl/querydsl-mongodb
+    compile group: 'com.querydsl', name: 'querydsl-mongodb', version: '4.2.2'
+
+    // https://mvnrepository.com/artifact/com.querydsl/querydsl-apt
+    compile group: 'com.querydsl', name: 'querydsl-apt', version: '4.2.2'
+    //annotationProcessor group: 'com.querydsl', name: 'querydsl-apt', version: '4.2.2'
+
+    annotationProcessor "com.querydsl:querydsl-apt:4.2.2"
+    //annotationProcessor("org.springframework.data.mongodb.repository.support.MongoAnnotationProcessor")
+
+	
+	runtimeOnly 'mysql:mysql-connector-java'
+	runtimeOnly 'org.postgresql:postgresql'
+	
+	compile('org.springframework.boot:spring-boot-starter-actuator')
+    compile('org.springframework.boot:spring-boot-starter-data-jpa')
+    compile('org.springframework.boot:spring-boot-starter-web')
+    compileOnly('org.projectlombok:lombok')
+    
+    testCompileOnly 'org.projectlombok:lombok:1.18.16'
+	testAnnotationProcessor 'org.projectlombok:lombok:1.18.16'
+	
+	compile 'org.slf4j:slf4j-api:1.7.5'
+		
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+	
+	testImplementation('org.springframework.boot:spring-boot-starter-test') {
+		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+	}
+	
+}
+
+test {
+	useJUnitPlatform()
+}
